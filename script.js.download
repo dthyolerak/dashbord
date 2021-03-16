@@ -1,0 +1,407 @@
+$(document).ready(function(){
+
+//spinner spinning
+var $loading = $('#spinner').hide();
+$(document)
+  .ajaxStart(function () {
+    $loading.show();
+  })
+  .ajaxStop(function () {
+    $loading.hide();
+  });
+
+
+$("#addLandlord").click(function(event){
+
+	var vf = formValidation(event);
+	if(vf){	
+	}else{		
+		return false;
+	}
+});
+
+$("#frmAddLandlord").submit(function(event){
+	var formData = new FormData($(this)[0]);
+	
+	$.ajax({
+		url: 'process.php',
+		type: 'POST', 
+		data: formData,
+		async: false,
+		cashe: false,
+		contentType: false,
+		processData: false,
+		success: function(response){
+			if (response =='success') {
+				document.getElementById('serverResponse').innerHTML = 
+				"<font color='green' size='5'><i class=\"fa fa-thumbs-o-up\"></i></font><font color='green'>&emsp;Data has been successfully submitted</font>";
+				$("#frmAddLandlord")[0].reset();
+				$( "#serverResponse" ).fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
+			}else if(response=='success0'){
+				document.getElementById('serverResponse').innerHTML = 
+					"<font color='#FFA40B'>&emsp;No changes have been made!</font>";
+			}else{
+				document.getElementById('serverResponse').innerHTML =
+				"<font color='red' size='5'><i class=\"fa fa-exclamation-triangle\"></i></font><font color='red'>&emsp;"+ response+"</font>";
+			}
+		}
+	});
+	 return false;
+		
+	});
+
+	//WHEN EDITING
+	$("#editLandlord").click(function(event){
+
+	var vf = formValidation(event);
+	if(vf){	
+	}else{		
+		return false;
+	}
+	});
+
+	$("#frmEditLandlord").submit(function(event){
+		var formData = new FormData($(this)[0]);
+		
+		$.ajax({
+			url: 'process.php',
+			type: 'POST', 
+			data: formData,
+			async: false,
+			cashe: false,
+			contentType: false,
+			processData: false,
+			success: function(response){
+				if (response =='success') {
+					document.getElementById('serverResponse').innerHTML = 
+					"<font color='green' size='5'><i class=\"fa fa-thumbs-o-up\"></i></font><font color='green'>&emsp;Data has been successfully submitted</font>";
+					//$("#frmAddLandlord")[0].reset();
+				}else if(response =='success0'){
+					document.getElementById('serverResponse').innerHTML = 
+					"<font color='#FFA40B'>&emsp;No changes have been made!</font>";
+					//$("#frmAddLandlord")[0].reset();
+				}else{
+					document.getElementById('serverResponse').innerHTML =
+					"<font color='red' size='5'><i class=\"fa fa-exclamation-triangle\"></i></font><font color='red'>&emsp;"+ response+"</font>";
+				}
+			}
+		});
+		 return false;	
+
+	});
+
+	$("#addApartment").click(function(event){
+
+		var vf = formApartmentValidation(event);
+		if(vf){	
+
+		}else{	
+
+			return false;
+		}
+	});
+
+	$("#frmAddApartment").submit(function(event){
+	var formData = new FormData($(this)[0]);
+	
+	$.ajax({
+		url: 'process.php',
+		type: 'POST', 
+		data: formData,
+		async: false,
+		cashe: false,
+		contentType: false,
+		processData: false,
+		success: function(response){
+			if (response =='success') {
+				document.getElementById('serverResponse').innerHTML = 
+				"<font color='green' size='5'><i class=\"fa fa-thumbs-o-up\"></i></font><font color='green'>&emsp;Data has been successfully submitted</font>";
+				$("#frmAddApartment")[0].reset();
+				$( "#serverResponse" ).fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
+			}else if(response=='success0'){
+				document.getElementById('serverResponse').innerHTML = 
+					"<font color='#FFA40B'>&emsp;No changes have been made!</font>";
+			}else{
+				document.getElementById('serverResponse').innerHTML =
+				"<font color='red' size='5'><i class=\"fa fa-exclamation-triangle\"></i></font><font color='red'>&emsp;"+ response+"</font>";
+			}
+		}
+	});
+	 return false;
+		
+	});
+
+	//WHEN EDITING APARTMENT
+	$("#editApartment").click(function(event){
+
+		var vf = formApartmentValidation(event);
+		if(vf){	
+
+		}else{		
+			return false;
+		}
+	});
+
+	$("#frmEditApartment").submit(function(event){
+	var formData = new FormData($(this)[0]);
+	
+	$.ajax({
+		url: 'process.php',
+		type: 'POST', 
+		data: formData,
+		async: false,
+		cashe: false,
+		contentType: false,
+		processData: false,
+		success: function(response){
+			if (response =='success') {
+				document.getElementById('serverResponse').innerHTML = 
+				"<font color='green' size='5'><i class=\"fa fa-thumbs-o-up\"></i></font><font color='green'>&emsp;Data has been successfully submitted</font>";
+				//$("#frmEditApartment")[0].reset();
+				$( "#serverResponse" ).fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
+			}else if(response=='success0'){
+				document.getElementById('serverResponse').innerHTML = 
+					"<font color='#FFA40B'>&emsp;No changes have been made!</font>";
+			}else{
+				document.getElementById('serverResponse').innerHTML =
+				"<font color='red' size='5'><i class=\"fa fa-exclamation-triangle\"></i></font><font color='red'>&emsp;"+ response+"</font>";
+			}
+		}
+	});
+	 return false;
+		
+	});
+
+});
+
+
+	 function delete_record(which, id){
+	  	if(confirm('Do you want to delete this record?')) {}
+	  	else return false;
+	  	var stid = id;
+	  	var record = which;
+	  	$.post('process.php', {delete_record_id: stid, record_type: record})
+          .done(function(data){
+           if (data =='success') {
+				document.getElementById('serverResponse').innerHTML = 
+				"<font color='green' size='5'><i class=\"fa fa-thumbs-o-up\"></i></font><font color='green'>&emsp;Data has been successfully submitted</font>";
+				//$("#frmEditApartment")[0].reset();
+				$( "#serverResponse" ).fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
+			}else if(data=='success0'){
+				document.getElementById('serverResponse').innerHTML = 
+					"<font color='#FFA40B'>&emsp;No changes have been made!</font>";
+			}else{
+				document.getElementById('serverResponse').innerHTML =
+				"<font color='red' size='5'><i class=\"fa fa-exclamation-triangle\"></i></font><font color='red'>&emsp;"+ data +"</font>";
+			}
+	          //$( "#serverResponse" ).fadeIn( 400 ).delay( 2000 ).fadeOut( 400 );
+	        
+	        setTimeout(function(){
+	        	location.reload();
+	        }, 2000);
+	          	
+	    });	
+	    //window.location.reload();  
+	}
+	
+
+function formValidation(e){
+
+	var ok = true;
+	var firstname, marital_status, lastname, dob, gender, address, district, title, cellphone, email, occupation;
+
+	title			= document.getElementById("title").value;
+	firstname		= document.getElementById("firstname").value;
+	lastname 		= document.getElementById("lastname").value;
+	address 		= document.getElementById("address").value;
+	cellphone		= document.getElementById("cellphone").value;
+	email 			= document.getElementById('email').value;
+	//cellphone 	  	= document.getElementById('cellphone').value;
+	//stdClass	  	= document.getElementById('stdClass').value;
+	//check_select(title, 'title');
+	check_length(firstname, 'firstname');
+	check_length(lastname, 'lastname');
+	check_select(title, 'title');
+	check_length(address, 'address');
+	check_email(email, 'email');
+	
+	if(cellphone.length != 0){
+		
+		if(isNaN(cellphone.substring(1))){
+			document.getElementById('cellphone-error').innerText = "Enter digits only";
+			document.getElementById('cellphone').style.borderColor = "red";
+			ok = false;
+		}else if(!(cellphone.length == 10 || cellphone.substring(1).length == 12)){
+			document.getElementById('cellphone-error').innerText = "Enter correct number of digits";
+			document.getElementById('cellphone').style.borderColor = "red";
+			ok = false;
+		}else {
+			document.getElementById('cellphone-error').innerText = '';
+			document.getElementById('cellphone').style.borderColor = "";
+		}
+		
+	}else {
+		document.getElementById('cellphone-error').innerText = '';
+		document.getElementById('cellphone').style.borderColor = "";
+	}
+
+
+	//second page validation
+	function check_select(value, item){
+		if(value == 'select'){
+			document.getElementById(item + '-error').innerText =  item.charAt(0).toUpperCase() + 
+			item.substring(1) + " should not be empty";
+			document.getElementById(item).style.borderColor = "red";
+			ok = false;
+		}else {
+			document.getElementById(item + '-error').innerText = '';
+			document.getElementById(item).style.borderColor = "";
+		}
+	}
+
+	function check_length(value, item){
+		if(value.length == 0){
+			document.getElementById(item + '-error').innerText =  item.charAt(0).toUpperCase() + 
+			item.substring(1) + " should not be empty";
+			document.getElementById(item).style.borderColor = "red";
+			ok = false;
+		}else {
+			document.getElementById(item + '-error').innerText = '';
+			document.getElementById(item).style.borderColor = "";
+		}
+	}
+
+	function check_email(val, email){
+		
+		var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
+		// Checking Empty Fields
+		var vemail=mailformat.test(val)
+		if ($.trim(val).length == 0 || vemail==false) {
+			document.getElementById(email + '-error').innerText =  email.charAt(0).toUpperCase() + 
+			email.substring(1) + " should be valid";
+			document.getElementById(email).style.borderColor = "red";
+			ok = false;
+		}else {
+			document.getElementById(email + '-error').innerText = '';
+			document.getElementById(email).style.borderColor = "";
+		}
+	}
+	return ok;	
+}
+
+function formApartmentValidation(e){
+
+	var ok = true;
+	var landlord, location, address, cost, distance, shared, description;
+
+	landlord			= document.getElementById("landlord").value;
+	location		= document.getElementById("location").value;
+	address 		= document.getElementById("address").value;
+	cost			= document.getElementById("cost").value;
+	distance		= document.getElementById("distance").value;
+	shared 			= document.getElementsByName('shared');
+	description 	  	= document.getElementById('description').value;
+	// facilities		= document.getElementsByName('facilities');
+	// alert(facilities[0].checked);
+	//alert('not ture');
+	//stdClass	  	= document.getElementById('stdClass').value;
+	//check_select(title, 'title');
+	check_select(landlord, 'landlord');
+	check_length(location, 'location');
+	check_select(distance, 'distance');
+	check_length(cost, 'cost');
+	check_length(address, 'address');
+	check_checked(shared, 'shared');
+	check_length(description, 'description');
+//alert(shared[0].checked);
+
+function check_phone(){	
+	if(cellphone.length != 0){
+		
+		if(isNaN(cellphone.substring(1))){
+			document.getElementById('cellphone-error').innerText = "Enter digits only";
+			document.getElementById('cellphone').style.borderColor = "red";
+			ok = false;
+		}else if(!(cellphone.length == 10 || cellphone.substring(1).length == 12)){
+			document.getElementById('cellphone-error').innerText = "Enter correct number of digits";
+			document.getElementById('cellphone').style.borderColor = "red";
+			ok = false;
+		}else {
+			document.getElementById('cellphone-error').innerText = '';
+			document.getElementById('cellphone').style.borderColor = "";
+		}
+		
+	}else {
+		document.getElementById('cellphone-error').innerText = '';
+		document.getElementById('cellphone').style.borderColor = "";
+	}
+}
+
+	//second page validation
+	function check_select(value, item){
+		if(value == 'select'){
+			document.getElementById(item + '-error').innerText =  item.charAt(0).toUpperCase() + 
+			item.substring(1) + " should not be empty";
+			document.getElementById(item).style.borderColor = "red";
+			ok = false;
+		}else {
+			document.getElementById(item + '-error').innerText = '';
+			document.getElementById(item).style.borderColor = "";
+		}
+	}
+	//second page validation
+	function validate_cost(value, item){
+		if(value == 'select'){
+			document.getElementById(item + '-error').innerText =  item.charAt(0).toUpperCase() + 
+			item.substring(1) + " should not be empty";
+			document.getElementById(item).style.borderColor = "red";
+			ok = false;
+		}else {
+			document.getElementById(item + '-error').innerText = '';
+			document.getElementById(item).style.borderColor = "";
+		}
+	}
+
+
+	function check_length(value, item){
+		if(value.length == 0){
+			document.getElementById(item + '-error').innerText =  item.charAt(0).toUpperCase() + 
+			item.substring(1) + " should not be empty";
+			document.getElementById(item).style.borderColor = "red";
+			ok = false;
+		}else {
+			document.getElementById(item + '-error').innerText = '';
+			document.getElementById(item).style.borderColor = "";
+		}
+	}
+
+	function check_email(val, email){
+		
+		var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
+		// Checking Empty Fields
+		var vemail=mailformat.test(val)
+		if ($.trim(val).length == 0 || vemail==false) {
+			document.getElementById(email + '-error').innerText =  email.charAt(0).toUpperCase() + 
+			email.substring(1) + " should be valid";
+			document.getElementById(email).style.borderColor = "red";
+			ok = false;
+		}else {
+			document.getElementById(email + '-error').innerText = '';
+			document.getElementById(email).style.borderColor = "";
+		}
+	}
+
+	function check_checked(val, item){
+		if((val[0].checked == false) && (val[1].checked == false)){
+			document.getElementById(item + '-error').innerText =  item.charAt(0).toUpperCase() + 
+			item.substring(1) + " should not be empty";
+			document.getElementById(item).style.borderColor = "red";
+			ok = false;
+		}else {
+			document.getElementById(item + '-error').innerText = '';
+			document.getElementById(item).style.borderColor = "";
+		}
+	}
+
+	return ok;	
+}

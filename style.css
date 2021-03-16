@@ -1,0 +1,13 @@
+.normal-font{
+	font-size: 16px;
+}
+.normal-font-bold{
+	font-size: 14px;
+	font-weight: bold;
+}
+.bd-dark{
+	background-color:#6F7A85; 
+}
+.help-block{
+	color: red;
+}
